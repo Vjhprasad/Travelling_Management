@@ -324,9 +324,9 @@ public void update() throws SQLException
    do {
 
     System.out.println("*********** UPDATE UR RECORDS*************");
-    System.out.println("press 1 to choose BusUPDATE");
-    System.out.println("press 2 to choose TrainUPDATE");
-    System.out.println("press 3 to choose FlightUPDATE");
+    System.out.println("press 1 if ur the bus passenger");
+    System.out.println("press 2 if ur the bus passenger");
+    System.out.println("press 3 if ur the bus passenger");
     System.out.println("press 4 to choose EXIT");
 
 
