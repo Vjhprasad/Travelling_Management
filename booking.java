@@ -1,5 +1,8 @@
 package com.Reservation;
+import java.util.regex.*;
+import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.io.IOException;
 import java.sql.*;
 public class booking 
 {
@@ -32,33 +35,54 @@ public class booking
         do
         {
 
-         System.out.println("Enter Username");
-         String username = sc1.next();
+        	Scanner sc = new Scanner(System.in);
+    		System.out.println("Enter username");
+    		String str = sc1.next();
+    		System.out.println("Enter password");
+    		String str1 = sc1.next();
 
-         System.out.println("Enter password");
-         String password = sc1.next();
+    		Pattern p = Pattern.compile("(vijay)");
+    		Pattern p1 = Pattern.compile("(prasad)");
+    		
+    		Matcher m = p.matcher(str);
+    		Matcher m1 = p1.matcher(str1);
+         
+         if(m.matches()&&m1.matches())
+         {
+        	 System.out.println("*********Your Authentication Was Successfull********");
+        	 flag = false;
+         }
+         else
+         {
 
-         Connection con =getconn();
-         Statement stmt= con.createStatement();
-         ResultSet rs=stmt.executeQuery("select username,password from admin");
-
-
-
-
-         if (rs.next()) {
-
-             if (rs.getString(1).equals(username) && rs.getString(2).equals(password)) 
-             {
-               System.out.println("*********Your Authentication Was Successfull********");
-               flag = false;
-           }
-
-           else  
-           {
                System.out.println("######  Access Denied | Access Denied ######");
                System.out.println("%%%%%%%%% Please Enter Correct Details %%%%%%%%%%%");
-           }
-       }
+         
+         }
+         //System.out.println("Enter password");
+         //String password = sc1.next();
+
+         //Connection con =getconn();
+         //Statement stmt= con.createStatement();
+         //ResultSet rs=stmt.executeQuery("select username,password from admin");
+
+
+
+
+       //  if (rs.next()) {
+
+             //if (rs.getString(1).equals(username) && rs.getString(2).equals(password)) 
+             //{
+               //System.out.println("*********Your Authentication Was Successfull********");
+             //  flag = false;
+           //}
+
+           //else  
+           //{
+             //  System.out.println("######  Access Denied | Access Denied ######");
+           //    System.out.println("%%%%%%%%% Please Enter Correct Details %%%%%%%%%%%");
+         //  }
+       //}
 
    }
    while(flag);
@@ -179,15 +203,21 @@ public void Bus() throws SQLException
 {
     
     System.out.println("******THANKS FOR CHOOSING BUS********");
-    
+   
+    try
+    {
     Connection con = getconn();
     String s1 = "insert into Bus(name,aadharid,source,destination) values(?,?,?,?)";
     PreparedStatement stmt = con.prepareStatement(s1);
 
     System.out.println("Enter ur Name:");
     String name =sc1.next();
-    System.out.println("Enter ur AadharID:");
-    int id =sc1.nextInt();
+   
+    	System.out.println("Enter ur AadharID:");
+        int id =sc1.nextInt();
+        	
+    
+    
     System.out.println("Enter ur Source:");
     String soc = sc1.next   (); 
     System.out.println("Enter ur Destination");
@@ -199,7 +229,10 @@ public void Bus() throws SQLException
     stmt.setString(4,des);
     int a = stmt.executeUpdate();  
 
-
+    }catch(InputMismatchException ex)
+    {
+    	System.out.println("please enter the correct INPUT_TYPE DETAILS "+ex);
+    }
 
 }
 
@@ -208,6 +241,8 @@ public void Train() throws SQLException
 {
     
     System.out.println("******THAKS FOR CHOOSING TRAIN********");
+    try
+    {
     Connection con = getconn();
     String s1 = "insert into Train(name,aadharid,source,destination) values(?,?,?,?)";
     PreparedStatement stmt = con.prepareStatement(s1);
@@ -215,7 +250,7 @@ public void Train() throws SQLException
     System.out.println("Enter ur Name:");
     String name =sc1.next();
     System.out.println("Enter ur AadharID:");
-                    int id =sc1.nextInt();
+    int id =sc1.nextInt();
     System.out.println("Enter ur Source:");
     String soc2 = sc1.next();
     System.out.println("enter ur destination");
@@ -227,7 +262,11 @@ public void Train() throws SQLException
     stmt.setString(3,soc2);
     stmt.setString(4,des);
     int b = stmt.executeUpdate(); 
-
+    }
+    catch(InputMismatchException ex)
+    {
+    	System.out.println("please enter the correct INPUT_TYPE DETAILS "+ex);
+    }
 }
 
 
@@ -235,6 +274,8 @@ public void Flight() throws SQLException
 {
 
     System.out.println("******THANKS FOR CHOOSING FLIGHT********");
+    try
+    {
     Connection con = getconn();
     String s1 = "insert into Flight(name,aadharid,source,destination) values(?,?,?,?)";
     PreparedStatement stmt = con.prepareStatement(s1);
@@ -253,12 +294,17 @@ public void Flight() throws SQLException
     stmt.setString(3,soc1);
     stmt.setString(4,des);
     int c = stmt.executeUpdate();
-
+    }
+    catch(InputMismatchException ex)
+    {
+    	System.out.println("please enter the correct INPUT_TYPE DETAILS "+ex);
+    }
 }
 
 public void update() throws SQLException
 {
-   
+   try
+   {
    Connection con = getconn();
    
 System.out.println("which passenger your(bus,train,flight) ?");
@@ -276,12 +322,23 @@ System.out.println("which passenger your(bus,train,flight) ?");
         stmt1.executeUpdate(s2);
         System.out.println("Your Query was Successfully Updated");
         
+   }
+   catch(InputMismatchException ex)
+   {
+	   System.out.println("please enter the correct INPUT_TYPE DETAILS "+ex);
+   }
+   catch(SQLException e)
+   {
+	   System.out.println("please enter the correct SYNTAX_TYPE DETAILS "+e);
+	      
+   }
 
 
 }
 public void delete() throws SQLException
 {
-   
+   try
+   {
     Connection con = getconn();
 
         System.out.println("which passenger yor(bus,train,flight)");
@@ -296,7 +353,16 @@ public void delete() throws SQLException
             System.out.println(" YOUR ACCOUNT WAS DELETED SUCCEFULLY ");
         
 
-    
+   }
+   catch(InputMismatchException ex)
+   {
+	   System.out.println("please enter the correct INPUT_TYPE DETAILS "+ex);
+   }
+   catch(SQLException e)
+   {
+	   System.out.println("please enter the correct SYNTAX_TYPE DETAILS "+e);
+	      
+   }
 
 }
 

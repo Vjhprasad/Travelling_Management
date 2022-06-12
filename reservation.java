@@ -1,13 +1,21 @@
+package com.Reservation;
+
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.sql.*;
 public class reservation  {
     
+ 
     public static void main(String[] args) throws SQLException
     {
         booking bb = new booking(); 
+       
+  
+    	   
         Boolean flag2 = true;
         do 
         {
+        	try {
             System.out.println("press 1 to Login as Admin");
             System.out.println("press 2 to Login as User");
             System.out.println("press 3 to choose EXIT");
@@ -22,7 +30,7 @@ public class reservation  {
                 break;
             case 2: bb.user();
                 flag2 = false;
-                System.exit(0);
+               // System.exit(0);
                 break;
             case 3: 
                 System.exit(0);
@@ -30,12 +38,18 @@ public class reservation  {
                 System.out.println("Please Enter the Correct One");
                 break;
             }
-
+        }
+        catch(InputMismatchException ex)
+        {
+      	  System.out.println("please Enter the correct INPUT_TYPE DETAILS "+ex);
+        }
+       
         }while(flag2);
 
 
         Boolean flag = true;
         do{
+        	try {
             String s = "y";
             //String usern,passw;
 
@@ -57,7 +71,7 @@ public class reservation  {
                 System.out.println("press 1 to choose Bus");
                 System.out.println("press 2 to choose Train");
                 System.out.println("press 3 to choose Flight");
-                System.out.println("press 4 to choose *** update a previous records *** ");
+                System.out.println("press 4 to choose *** update your records *** ");
                 System.out.println("press 5 to choose *** Delete your DATA ***");
                 System.out.println("press 6 to choose EXIT");
 
@@ -94,9 +108,17 @@ public class reservation  {
               //  System.out.println("INVALID. Please Enter Correct Details: ");
 
             //}
+            
+        }
+        catch(InputMismatchException ex)
+        {
+      	  System.out.println("please Enter the correct INPUT_TYPE DETAILS "+ex);
+        }
+       
         }
         while(flag);
-
-    }
+       
+   }
 
 }
+
